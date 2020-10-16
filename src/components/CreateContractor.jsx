@@ -21,11 +21,11 @@ const CreateContractor = () => {
     try {
       contractorParams = {
         name: name.value,
-        contact: contact.value,
+        contact_person: contact.value,
         address: address.value,
         telephone: telephone.value,
         email: email.value,
-        companyNumber: companyNumber.value,
+        company_number: companyNumber.value,
       };
 
       response = await axios.post(
