@@ -20,8 +20,6 @@ const Navbar = () => {
         />
         <Menu.Item
           position="right"
-          as={Link}
-          to={{ pathname: "/whysolar" }}
           content="Why solar"
           data-cy="button"
           onClick={() => setWhySolarOptions(!showWhySolarOptions)}
