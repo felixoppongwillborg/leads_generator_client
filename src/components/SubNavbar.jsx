@@ -1,10 +1,10 @@
 import React from 'react'
 
-
-function SubNavbar() {
+const SubNavbar = () => {
   return (
     <div>
-      
+      <button>Help the environment</button>
+      <button>Benefit your wallet</button>
     </div>
   )
 }

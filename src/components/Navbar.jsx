@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SubNavbar from "./SubNavbar";
 import { Menu, Segment, Image, Button } from "semantic-ui-react";
 
 const Navbar = () => {
+  const [showWhySolarOptions, setWhySolarOptions] = useState(false);
+
   return (
     <Segment id="segment">
       <Menu id="navbar" text>
@@ -21,7 +24,15 @@ const Navbar = () => {
           to={{ pathname: "/whysolar" }}
           content="Why solar"
           data-cy="button"
+          onClick={() => setWhySolarOptions(!showWhySolarOptions)}
         />
+        {showWhySolarOptions ? (
+          <div>
+            <SubNavbar />
+          </div>
+        ) : (
+          ""
+        )}
         <Menu.Item
           position="right"
           as={Link}
