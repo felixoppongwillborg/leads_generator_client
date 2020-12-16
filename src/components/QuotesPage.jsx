@@ -10,7 +10,7 @@ import ImageUploader from "react-images-upload";
 
 const QuotesPage = () => {
   const [message, setMessage] = useState("");
-  const [photos, setPhotos] = useState([]);
+  const [pictures, setPictures] = useState([]);
 
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -40,6 +40,7 @@ const QuotesPage = () => {
       roof_length = "",
       fuse_size = "",
       energy_consumption = "",
+      images,
     } = event.target;
 
     try {
@@ -60,7 +61,7 @@ const QuotesPage = () => {
         roof_length: roof_length.value,
         fuse_size: fuse_size.value,
         energy_consumption: energy_consumption.value,
-        images: photos,
+        images: pictures,
       };
 
       response = await axios.post("http://localhost:3000/api/v1/quotes", {
@@ -75,13 +76,13 @@ const QuotesPage = () => {
     }
   };
 
-  const onDrop = async (photo) => {
+  const onDrop = async (picture) => {
     const encodedImages = [];
-    for (let image of photo) {
+    for (let image of picture) {
       const encodedImage = await toBase64(image);
       encodedImages.push(encodedImage);
     }
-    setPhotos(encodedImages);
+    setPictures(encodedImages);
   };
 
   return (
@@ -147,15 +148,13 @@ const QuotesPage = () => {
                 imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                 maxFileSize={5242880}
                 withPreview={true}
-                data-cy="image-upload"
+                data-cy="file-input"
               />
             </form>
           );
         }}
       />
-      <MessagePage 
-      message={message}
-      />
+      <MessagePage message={message} />
     </div>
   );
 };
