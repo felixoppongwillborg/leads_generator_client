@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ImageUpload from "./ImageUpload"
 import { Field } from "react-final-form";
 import "./Electricity.style.css";
 import { Link as Scrolllink } from "react-scroll";
@@ -6,8 +7,11 @@ import { Grid, Icon, Popup } from "semantic-ui-react";
 
 const Electricity = (props) => {
   const [fuseSize, setFuseSize] = useState("");
+  const components = [<ImageUpload />];
+  const [index, setIndex] = useState("");
 
   return (
+    <>
     <div id="electricity">
       <input type="hidden" name="fuse_size" value={fuseSize} />
       <Grid id="fuseSizeIcons">
@@ -103,6 +107,26 @@ const Electricity = (props) => {
           position="bottom center"
         />
       </Scrolllink>
+      <Scrolllink
+          to="imageUpload"
+          activeClass="active"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration={1500}
+          onMouseDown={async (e) => {
+            setIndex(0);
+          }}
+        >
+          <Popup
+            trigger={
+              <Icon size="big" name="angle right" id="skipToImageUploadQ" />
+            }
+            content="Skip to next question"
+            inverted
+            position="bottom center"
+          />
+        </Scrolllink>
       <button
         id="submitButton"
         data-cy="button"
@@ -112,6 +136,8 @@ const Electricity = (props) => {
         Submit
       </button>
     </div>
+    {components[index]}
+    </>
   );
 };
 

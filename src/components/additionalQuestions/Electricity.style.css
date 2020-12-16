@@ -51,6 +51,13 @@ input:-webkit-autofill:active {
   font-size: 3vh;
 }
 
+#skipToImageUploadQ {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  color: rgba(0, 0, 0, 0.4);
+}
+
 #backToRoofDimensionsQ {
   position: absolute;
   top: 50%;

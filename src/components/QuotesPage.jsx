@@ -6,21 +6,12 @@ import AddressQuestion from "./mandatoryQuestions/AddressQuestion";
 import MessagePage from "./mandatoryQuestions/MessagePage";
 import axios from "axios";
 import { Form } from "react-final-form";
-import ImageUploader from "react-images-upload";
 
 const QuotesPage = () => {
   const [message, setMessage] = useState("");
-  const [pictures, setPictures] = useState([]);
-
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
 
   const onSubmit = async (event) => {
+    debugger
     event.preventDefault();
     let responseMessage, quoteParams, response;
     let {
@@ -40,7 +31,7 @@ const QuotesPage = () => {
       roof_length = "",
       fuse_size = "",
       energy_consumption = "",
-      images,
+      images = "",
     } = event.target;
 
     try {
@@ -61,7 +52,7 @@ const QuotesPage = () => {
         roof_length: roof_length.value,
         fuse_size: fuse_size.value,
         energy_consumption: energy_consumption.value,
-        images: pictures,
+        images: props.pictures,
       };
 
       response = await axios.post("http://localhost:3000/api/v1/quotes", {
@@ -74,15 +65,6 @@ const QuotesPage = () => {
     } finally {
       setMessage(responseMessage);
     }
-  };
-
-  const onDrop = async (picture) => {
-    const encodedImages = [];
-    for (let image of picture) {
-      const encodedImage = await toBase64(image);
-      encodedImages.push(encodedImage);
-    }
-    setPictures(encodedImages);
   };
 
   return (
@@ -142,14 +124,6 @@ const QuotesPage = () => {
                   }}
                 </>
               )}
-              <ImageUploader
-                withIcon={true}
-                onChange={onDrop}
-                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                maxFileSize={5242880}
-                withPreview={true}
-                data-cy="file-input"
-              />
             </form>
           );
         }}
